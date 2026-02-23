@@ -1,65 +1,104 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="space-y-8">
+      <section className="max-w-3xl space-y-4">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Mapping Neoliberal Housing Logic in Los Angeles
+        </h1>
+        <p className="text-sm uppercase tracking-[0.25em] text-zinc-500">
+          Interactive map · policy timeline · critical bibliography
+        </p>
+        <p className="text-base leading-relaxed text-zinc-700">
+          This project examines how{" "}
+          <span className="font-semibold">neoliberal housing logic</span>—the
+          prioritization of property values, market solutions, and austerity—has
+          structured homelessness policy in Los Angeles and the United States.
+          By layering locations, policies, and citations, the site invites users
+          to see homelessness not as an individual failure, but as the outcome
+          of political and spatial decisions.
+        </p>
+      </section>
+
+      <section className="grid gap-6 md:grid-cols-3">
+        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+          <h2 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900">
+            Map Explorer
+          </h2>
+          <p className="mb-3 text-sm text-zinc-700">
+            Navigate key sites in Los Angeles—encampments, redevelopment zones,
+            shelters, policing hotspots—and read narrative case studies that
+            connect place to policy.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/map"
+            className="text-sm font-medium text-zinc-900 underline underline-offset-4"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+            Open the interactive map →
           </a>
         </div>
-      </main>
+
+        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+          <h2 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900">
+            Policy Timeline
+          </h2>
+          <p className="mb-3 text-sm text-zinc-700">
+            Trace federal, state, and local homelessness and housing policies
+            over time, grouped by decade and tagged by theme.
+          </p>
+          <a
+            href="/policies"
+            className="text-sm font-medium text-zinc-900 underline underline-offset-4"
+          >
+            Browse the timeline →
+          </a>
+        </div>
+
+        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+          <h2 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900">
+            Sources & Methods
+          </h2>
+          <p className="mb-3 text-sm text-zinc-700">
+            Explore our bibliography and methods, including how we define
+            neoliberal housing logic, our archive, and limits of the project.
+          </p>
+          <div className="space-x-3 text-sm font-medium text-zinc-900">
+            <a
+              href="/sources"
+              className="underline underline-offset-4"
+            >
+              View sources
+            </a>
+            <a
+              href="/about"
+              className="underline underline-offset-4"
+            >
+              Read methods
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-3xl space-y-3 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm">
+        <h2 className="text-sm font-semibold tracking-tight text-zinc-900">
+          How to use this site
+        </h2>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>
+            Use the <span className="font-semibold">Map</span> to locate
+            specific neighborhoods, sweeps, shelters, and redevelopment
+            projects.
+          </li>
+          <li>
+            Use the <span className="font-semibold">Policy Timeline</span> to
+            follow key federal, state, and city policies and see where they land
+            on the map.
+          </li>
+          <li>
+            Use the <span className="font-semibold">Sources</span> page to trace
+            how each citation is mobilized across locations and policies.
+          </li>
+        </ul>
+      </section>
     </div>
   );
 }
