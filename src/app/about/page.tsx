@@ -46,7 +46,7 @@ export default function AboutPage() {
           historians, geographers, urban planners, unhoused organizers, and
           local mutual aid groups. See the{" "}
           <a
-            href="/sources"
+            href="/hist12b/sources"
             className="font-medium text-zinc-900 underline underline-offset-4"
           >
             Sources
