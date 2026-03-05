@@ -30,7 +30,7 @@ export default function Home() {
             connect place to policy.
           </p>
           <a
-            href="/map"
+            href="/hist12b/map"
             className="text-sm font-medium text-zinc-900 underline underline-offset-4"
           >
             Open the interactive map →
@@ -46,7 +46,7 @@ export default function Home() {
             over time, grouped by decade and tagged by theme.
           </p>
           <a
-            href="/policies"
+            href="/hist12b/policies"
             className="text-sm font-medium text-zinc-900 underline underline-offset-4"
           >
             Browse the timeline →
@@ -63,13 +63,13 @@ export default function Home() {
           </p>
           <div className="space-x-3 text-sm font-medium text-zinc-900">
             <a
-              href="/sources"
+              href="/hist12b/sources"
               className="underline underline-offset-4"
             >
               View sources
             </a>
             <a
-              href="/about"
+              href="/hist12b/about"
               className="underline underline-offset-4"
             >
               Read methods
