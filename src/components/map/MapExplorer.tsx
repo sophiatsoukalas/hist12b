@@ -193,7 +193,7 @@ export default function MapExplorer() {
       } else {
         const bounds = locations.map(
           loc => [loc.latitude, loc.longitude] as [number, number]
-        ;
+        );
         map.fitBounds(bounds, { padding: [50, 50] });
       }
 
