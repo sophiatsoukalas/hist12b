@@ -182,26 +182,26 @@ export default function MapExplorer() {
 
   // Component to fit map bounds to all markers
   function FitBoundsComponent({ locations }: { locations: Location[] }) {
-  const map = useMap();
-  const hasFitBounds = useRef(false);
+    const map = useMap();
+    const hasFitBounds = useRef(false);
 
-  useEffect(() => {
-    if (hasFitBounds.current) return;
+    useEffect(() => {
+      if (hasFitBounds.current) return;
 
-    if (locations.length === 0) {
-      map.setView(center, 11);
-    } else {
-      const bounds = locations.map(
-        loc => [loc.latitude, loc.longitude] as [number, number]
-      );
-      map.fitBounds(bounds, { padding: [50, 50] });
-    }
+      if (locations.length === 0) {
+        map.setView(center, 11);
+      } else {
+        const bounds = locations.map(
+          loc => [loc.latitude, loc.longitude] as [number, number]
+        ;
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
 
-    hasFitBounds.current = true;
-  }, [locations, map]);
+      hasFitBounds.current = true;
+    }, [locations, map]);
 
-  return null;
-}
+    return null;
+  }
 
   return (
     <>
