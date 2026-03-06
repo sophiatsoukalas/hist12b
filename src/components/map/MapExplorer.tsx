@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap } from "react-leaflet";
 import type { Location } from "@/types/content";
 import { supabase } from "@/lib/supabaseClient";
 import "leaflet/dist/leaflet.css";
 import ReactMarkdown from "react-markdown";
+
+
 
 type FilterState = {
   search: string;
@@ -181,19 +183,23 @@ export default function MapExplorer() {
   // Component to fit map bounds to all markers
   function FitBoundsComponent({ locations }: { locations: Location[] }) {
     const map = useMap();
-    
+    const hasFitBounds = useRef(false);
+
     useEffect(() => {
+      if (hasFitBounds.current) return;
+
       if (locations.length === 0) {
-        // Reset to default center if no results
         map.setView(center, 11);
-        return;
+      } else {
+        const bounds = locations.map(
+          loc => [loc.latitude, loc.longitude] as [number, number]
+        );
+        map.fitBounds(bounds, { padding: [50, 50] });
       }
-      
-      // Create bounds from all locations
-      const bounds = locations.map(loc => [loc.latitude, loc.longitude] as [number, number]);
-      map.fitBounds(bounds, { padding: [50, 50] });
+
+      hasFitBounds.current = true;
     }, [locations, map]);
-    
+
     return null;
   }
 
