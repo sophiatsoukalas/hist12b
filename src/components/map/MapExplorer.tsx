@@ -198,7 +198,7 @@ export default function MapExplorer() {
       }
 
       hasFitBounds.current = true;
-    }, [locations, map]);
+    }, []);
 
     return null;
   }
