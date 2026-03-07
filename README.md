@@ -17,11 +17,23 @@ Tech stack:
    - Go to the Supabase dashboard and create a new project.
    - Note the **Project URL** and **Anon public API key** from the Project Settings → API page.
 
-2. **Run schema migration**
+2. **Run schema migrations (in order)**
+   
+   ### For NEW projects (first-time setup):
    - In the Supabase dashboard, open **SQL Editor**.
-   - Create a new query and paste the contents of:
-     - `supabase/migrations/001_init.sql`
-   - Run the query to create tables, RLS policies, and helper functions.
+   - Run the following files **in order**:
+     1. `supabase/migrations/001_init.sql` - Creates initial tables and structure
+     2. `supabase/migrations/002_add_genre_to_policies.sql` - Adds genre field for Policy/Resistance distinction
+   
+   ### For EXISTING projects (already have the database):
+   - If you've already set up the database before, you **only need to run**:
+     - `supabase/migrations/002_add_genre_to_policies.sql`
+   - This adds the new `genre` field without affecting existing data.
+   
+   The migration will:
+   - Add a `genre` column to the `policies` table (default: 'Policy')
+   - Allow distinguishing between official **Policies** and **Resistance** movements
+   - Create an index for faster filtering by genre
 
 3. **Run seed data**
    - In the SQL Editor, create another query with:

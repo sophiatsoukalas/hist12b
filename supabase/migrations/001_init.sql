@@ -83,6 +83,7 @@ create table if not exists public.policies (
   short_summary text,
   narrative_md text,
   tags text[] not null default '{}'::text[],
+  genre text not null default 'Policy',
   published boolean not null default false,
   created_at timestamptz not null default timezone('utc', now()),
   updated_at timestamptz not null default timezone('utc', now())

@@ -36,6 +36,7 @@ export default function PoliciesPage() {
   const [error, setError] = useState<string | null>(null);
   const [jurisdiction, setJurisdiction] = useState<string>("all");
   const [tag, setTag] = useState<string>("all");
+  const [visibleDecades, setVisibleDecades] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const load = async () => {
@@ -85,6 +86,18 @@ export default function PoliciesPage() {
 
     load();
   }, []);
+
+  // Trigger animations after initial render
+  useEffect(() => {
+    if (!loading && grouped.length > 0) {
+      // Animate decades one by one
+      grouped.forEach((group, index) => {
+        setTimeout(() => {
+          setVisibleDecades((prev) => new Set(prev).add(group.decade));
+        }, index * 200);
+      });
+    }
+  }, [loading]);
 
   const allTags = useMemo(() => {
     const s = new Set<string>();
@@ -136,16 +149,32 @@ export default function PoliciesPage() {
     }
   };
 
+  // Analyze decade content for timeline color
+  const getDecadeColor = (items: PolicyWithRelations[]) => {
+    const hasPolicy = items.some((p) => p.genre === "Policy");
+    const hasResistance = items.some((p) => p.genre === "Resistance");
+    
+    if (hasPolicy && hasResistance) {
+      return "gradient";
+    } else if (hasResistance) {
+      return "red";
+    } else {
+      return "blue";
+    }
+  };
+
   return (
     <div className="space-y-4">
       <header className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div className="max-w-3xl space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Policy Timeline
+            <span className="text-red-600">Resistance</span>
+            <span className="text-zinc-800 mx-2">&</span>
+            <span className="text-blue-600">Policies</span>
           </h1>
-          <p className="text-sm text-zinc-700">
+          <p className="text-sm text-zinc-800 mx-2">
             A chronological view of federal, state, county, and city-level
-            policies that have shaped homelessness and housing in Los Angeles
+            policies and resistance movements that have shaped homelessness and housing in Los Angeles
             and the United States.
           </p>
         </div>
@@ -186,6 +215,63 @@ export default function PoliciesPage() {
         </div>
       </header>
 
+      {/* Horizontal Timeline Navigation */}
+      {!loading && grouped.length > 0 && (
+        <div className="relative py-6 overflow-x-auto">
+          <div className="flex items-center min-w-max px-4">
+            {/* Horizontal line */}
+            <div className="absolute left-0 right-0 top-1/2 h-0.5 bg-gradient-to-r from-red-500 via-purple-500 to-blue-500"></div>
+            
+            {/* Timeline dots */}
+            <div className="relative z-10 flex items-center gap-4">
+              {grouped.map((group, index) => {
+                const color = getDecadeColor(group.items);
+                const isVisible = visibleDecades.has(group.decade);
+                
+                return (
+                  <a
+                    key={group.decade}
+                    href={`#decade-${group.decade}`}
+                    className={`transition-all duration-700 ease-out ${
+                      isVisible 
+                        ? 'opacity-100 scale-100' 
+                        : 'opacity-0 scale-90'
+                    }`}
+                    style={{ transitionDelay: `${index * 150}ms` }}
+                  >
+                    <div className="flex flex-col items-center group cursor-pointer">
+                      {/* Animated dot */}
+                      <div
+                        className={`w-5 h-5 rounded-full border-3 border-white shadow-lg transition-transform duration-300 group-hover:scale-125 ${
+                          color === "gradient"
+                            ? "bg-gradient-to-br from-red-500 to-blue-500"
+                            : color === "red"
+                            ? "bg-red-500"
+                            : "bg-blue-500"
+                        }`}
+                      ></div>
+                      
+                      {/* Decade label */}
+                      <span
+                        className={`mt-2 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 group-hover:scale-110 ${
+                          color === "gradient"
+                            ? "bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent"
+                            : color === "red"
+                            ? "text-red-600"
+                            : "text-blue-600"
+                        }`}
+                      >
+                        {group.decade}
+                      </span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {error && (
         <p className="text-sm text-red-600">
           Error loading policies: {error}
@@ -195,137 +281,277 @@ export default function PoliciesPage() {
       {loading ? (
         <p className="text-sm text-zinc-600">Loading policies…</p>
       ) : (
-        <div className="space-y-6 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
-          {grouped.map((group) => (
-            <section key={group.decade} className="space-y-3">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-zinc-500">
-                {group.decade}
-              </h2>
-              <div className="space-y-3">
-                {group.items.map((p) => (
-                  <article
-                    key={p.id}
-                    className="rounded-lg border border-zinc-200 bg-white p-3 text-sm text-zinc-700"
-                  >
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <div>
-                        <h3 className="text-sm font-semibold text-zinc-900">
-                          {p.title}
-                        </h3>
-                        <p className="text-xs text-zinc-500">
-                          {p.date
-                            ? new Date(p.date).toLocaleDateString(undefined, {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              })
-                            : "No date recorded"}
-                          {" · "}
-                          {jurisdictionLabel(p.jurisdiction)}
-                        </p>
-                      </div>
-                      {p.tags?.length ? (
-                        <div className="flex flex-wrap gap-1">
-                          {p.tags.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
+        <div className="space-y-12">
+          {grouped.map((group) => {
+            const color = getDecadeColor(group.items);
+            const isVisible = visibleDecades.has(group.decade);
+            
+            // Count items by genre
+            const resistanceCount = group.items.filter((p) => p.genre === "Resistance").length;
+            const policyCount = group.items.filter((p) => p.genre === "Policy").length;
+            
+            return (
+              <section
+                key={group.decade}
+                id={`decade-${group.decade}`}
+                className={`transition-all duration-700 ease-out ${
+                  isVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-100 translate-y-8'
+                }`}
+              >
+                {/* Decade header */}
+                <div className="relative mb-8">
+                  <div className="flex items-center">
+                    <div className="flex-1 border-t-2 border-zinc-200"></div>
+                    <div
+                      className={`mx-4 px-6 py-2 rounded-full text-sm font-bold uppercase tracking-[0.2em] shadow-sm ${
+                        color === "gradient"
+                          ? "bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent border-2 border-current bg-white"
+                          : color === "red"
+                          ? "text-red-600 border-2 border-red-600 bg-red-50"
+                          : "text-blue-600 border-2 border-blue-600 bg-blue-50"
+                      }`}
+                    >
+                      {group.decade}
                     </div>
-                    {p.short_summary && (
-                      <p className="mt-2 text-sm text-zinc-700">
-                        {p.short_summary}
-                      </p>
-                    )}
-                    {p.narrative_md && (
-                      <div className="prose prose-sm mt-2 max-w-none text-zinc-800">
-                        <ReactMarkdown>{p.narrative_md}</ReactMarkdown>
-                      </div>
-                    )}
-                    <div className="mt-3 grid gap-2 text-[11px] text-zinc-700 md:grid-cols-2">
-                      <div>
-                        <p className="mb-1 font-medium text-zinc-800">
-                          Citations
-                        </p>
-                        {p.policy_citations &&
-                        p.policy_citations.length > 0 ? (
-                          <ul className="space-y-1">
-                            {p.policy_citations.map((pc, idx) =>
-                              pc.citations ? (
-                                <li key={`${pc.citations.id}-${idx}`}>
-                                  <span className="font-medium">
-                                    {pc.citations.citation_key}
-                                  </span>
-                                  {": "}
-                                  <span>{pc.citations.title}</span>
-                                  {pc.context_note && (
-                                    <span className="text-zinc-500">
-                                      {` — ${pc.context_note}`}
-                                    </span>
-                                  )}
-                                </li>
-                              ) : null,
-                            )}
-                          </ul>
-                        ) : (
-                          <p className="text-[11px] text-zinc-500">
-                            No citations linked yet.
-                          </p>
-                        )}
-                      </div>
-                      <div>
-                        <p className="mb-1 font-medium text-zinc-800">
-                          Related locations
-                        </p>
-                        {p.policy_locations &&
-                        p.policy_locations.length > 0 ? (
-                          <ul className="space-y-1">
-                            {p.policy_locations.map((pl, idx) =>
-                              pl.locations ? (
-                                <li key={`${pl.locations.id}-${idx}`}>
-                                  <span className="font-medium">
-                                    {pl.locations.title}
-                                  </span>
-                                  {pl.locations.neighborhood && (
-                                    <span className="text-zinc-500">
-                                      {` (${pl.locations.neighborhood})`}
-                                    </span>
-                                  )}
-                                  {pl.relationship_note && (
-                                    <span className="text-zinc-500">
-                                      {` — ${pl.relationship_note}`}
-                                    </span>
-                                  )}
-                                </li>
-                              ) : null,
-                            )}
-                          </ul>
-                        ) : (
-                          <p className="text-[11px] text-zinc-500">
-                            No locations linked yet.
-                          </p>
-                        )}
-                      </div>
+                    <div className="flex-1 border-t-2 border-zinc-200"></div>
+                  </div>
+                </div>
+
+                {/* Dynamic grid layout based on content */}
+                {resistanceCount > 0 && policyCount > 0 ? (
+                  // Both exist: show side-by-side on desktop, stacked on mobile
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    {/* Left column: Resistance */}
+                    <div className="space-y-4">
+                      {group.items
+                        .filter((p) => p.genre === "Resistance")
+                        .map((p) => (
+                          <ResistanceCard key={p.id} policy={p} jurisdictionLabel={jurisdictionLabel} />
+                        ))}
                     </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          ))}
-          {!grouped.length && (
-            <p className="text-sm text-zinc-600">
-              No policies match the current filters.
-            </p>
-          )}
+
+                    {/* Right column: Policy */}
+                    <div className="space-y-4">
+                      {group.items
+                        .filter((p) => p.genre === "Policy")
+                        .map((p) => (
+                          <PolicyCard key={p.id} policy={p} jurisdictionLabel={jurisdictionLabel} />
+                        ))}
+                    </div>
+                  </div>
+                ) : resistanceCount > 0 ? (
+                  // Only Resistance: center it
+                  <div className="max-w-3xl mx-auto space-y-4">
+                    {group.items
+                      .filter((p) => p.genre === "Resistance")
+                      .map((p) => (
+                        <ResistanceCard key={p.id} policy={p} jurisdictionLabel={jurisdictionLabel} />
+                      ))}
+                  </div>
+                ) : policyCount > 0 ? (
+                  // Only Policy: center it
+                  <div className="max-w-3xl mx-auto space-y-4">
+                    {group.items
+                      .filter((p) => p.genre === "Policy")
+                      .map((p) => (
+                        <PolicyCard key={p.id} policy={p} jurisdictionLabel={jurisdictionLabel} />
+                      ))}
+                  </div>
+                ) : null}
+              </section>
+            );
+          })}
         </div>
+      )}
+
+      {!grouped.length && (
+        <p className="text-sm text-zinc-600 text-center py-8">
+          No policies match the current filters.
+        </p>
       )}
     </div>
   );
 }
 
+// Helper component for Resistance cards
+function ResistanceCard({ policy, jurisdictionLabel }: { 
+  policy: PolicyWithRelations;
+  jurisdictionLabel: (j: Policy["jurisdiction"]) => string;
+}) {
+  return (
+    <article
+      className="rounded-lg border-l-4 border-red-500 bg-white p-4 text-sm text-zinc-700 hover:shadow-md transition-shadow duration-300"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <div>
+          <h3 className="text-sm font-semibold text-zinc-900">
+            {policy.title}
+          </h3>
+          <p className="text-xs text-zinc-500">
+            {policy.date
+              ? new Date(policy.date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })
+              : "No date recorded"}
+            {" · "}
+            {jurisdictionLabel(policy.jurisdiction)}
+          </p>
+        </div>
+        {policy.tags?.length ? (
+          <div className="flex flex-wrap gap-1">
+            {policy.tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+      {policy.short_summary && (
+        <p className="mt-2 text-sm text-zinc-700">
+          {policy.short_summary}
+        </p>
+      )}
+      {policy.narrative_md && (
+        <div className="prose prose-sm mt-2 max-w-none text-zinc-800">
+          <ReactMarkdown>{policy.narrative_md}</ReactMarkdown>
+        </div>
+      )}
+      {/* Citations and locations */}
+      <PolicyDetails policy={policy} />
+    </article>
+  );
+}
 
+// Helper component for Policy cards
+function PolicyCard({ policy, jurisdictionLabel }: { 
+  policy: PolicyWithRelations;
+  jurisdictionLabel: (j: Policy["jurisdiction"]) => string;
+}) {
+  return (
+    <article
+      className="rounded-lg border-r-4 border-blue-500 bg-white p-4 text-sm text-zinc-700 hover:shadow-md transition-shadow duration-300"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <div>
+          <h3 className="text-sm font-semibold text-zinc-900">
+            {policy.title}
+          </h3>
+          <p className="text-xs text-zinc-500">
+            {policy.date
+              ? new Date(policy.date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })
+              : "No date recorded"}
+            {" · "}
+            {jurisdictionLabel(policy.jurisdiction)}
+          </p>
+        </div>
+        {policy.tags?.length ? (
+          <div className="flex flex-wrap gap-1">
+            {policy.tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+      {policy.short_summary && (
+        <p className="mt-2 text-sm text-zinc-700">
+          {policy.short_summary}
+        </p>
+      )}
+      {policy.narrative_md && (
+        <div className="prose prose-sm mt-2 max-w-none text-zinc-800">
+          <ReactMarkdown>{policy.narrative_md}</ReactMarkdown>
+        </div>
+      )}
+      {/* Citations and locations */}
+      <PolicyDetails policy={policy} />
+    </article>
+  );
+}
+
+// Helper component for policy details
+function PolicyDetails({ policy }: { policy: PolicyWithRelations }) {
+  return (
+    <div className="mt-3 grid gap-2 text-[11px] text-zinc-700 md:grid-cols-2">
+      <div>
+        <p className="mb-1 font-medium text-zinc-800">
+          Citations
+        </p>
+        {policy.policy_citations &&
+        policy.policy_citations.length > 0 ? (
+          <ul className="space-y-1">
+            {policy.policy_citations.map((pc, idx) =>
+              pc.citations ? (
+                <li key={`${pc.citations.id}-${idx}`}>
+                  <span className="font-medium">
+                    {pc.citations.citation_key}
+                  </span>
+                  {": "}
+                  <span>{pc.citations.title}</span>
+                  {pc.context_note && (
+                    <span className="text-zinc-500">
+                      {` — ${pc.context_note}`}
+                    </span>
+                  )}
+                </li>
+              ) : null,
+            )}
+          </ul>
+        ) : (
+          <p className="text-[11px] text-zinc-500">
+            No citations linked yet.
+          </p>
+        )}
+      </div>
+      <div>
+        <p className="mb-1 font-medium text-zinc-800">
+          Related locations
+        </p>
+        {policy.policy_locations &&
+        policy.policy_locations.length > 0 ? (
+          <ul className="space-y-1">
+            {policy.policy_locations.map((pl, idx) =>
+              pl.locations ? (
+                <li key={`${pl.locations.id}-${idx}`}>
+                  <span className="font-medium">
+                    {pl.locations.title}
+                  </span>
+                  {pl.locations.neighborhood && (
+                    <span className="text-zinc-500">
+                      {` (${pl.locations.neighborhood})`}
+                    </span>
+                  )}
+                  {pl.relationship_note && (
+                    <span className="text-zinc-500">
+                      {` — ${pl.relationship_note}`}
+                    </span>
+                  )}
+                </li>
+              ) : null,
+            )}
+          </ul>
+        ) : (
+          <p className="text-[11px] text-zinc-500">
+            No locations linked yet.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
