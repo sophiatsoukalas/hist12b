@@ -210,6 +210,7 @@ function AdminTabs() {
     slug: "",
     date: "",
     jurisdiction: "city",
+    genre: "Policy" as "Policy" | "Resistance",
     short_summary: "",
     narrative_md: "",
     tagsInput: "",
@@ -513,6 +514,7 @@ function AdminTabs() {
       slug: "",
       date: "",
       jurisdiction: "city",
+      genre: "Policy" as "Policy" | "Resistance",
       short_summary: "",
       narrative_md: "",
       tagsInput: "",
@@ -530,6 +532,7 @@ function AdminTabs() {
       slug: p.slug,
       date: p.date ?? "",
       jurisdiction: p.jurisdiction,
+      genre: p.genre ?? "Policy",
       short_summary: p.short_summary ?? "",
       narrative_md: p.narrative_md ?? "",
       tagsInput: (p.tags ?? []).join(", "),
@@ -569,6 +572,7 @@ function AdminTabs() {
       slug: policyForm.slug,
       date: policyForm.date || null,
       jurisdiction: policyForm.jurisdiction as Policy["jurisdiction"],
+      genre: policyForm.genre,
       short_summary: policyForm.short_summary.trim() || null,
       narrative_md: policyForm.narrative_md.trim() || null,
       tags,
@@ -777,7 +781,7 @@ function AdminTabs() {
 
       <Tab.Group>
         <Tab.List className="mb-4 inline-flex gap-1 rounded-full bg-zinc-100 p-1 text-xs">
-          {["Locations", "Policies", "Citations"].map((tab) => (
+          {["Locations", "Policies & Resistance", "Citations"].map((tab) => (
             <Tab
               key={tab}
               className={({ selected }) =>
@@ -1167,7 +1171,7 @@ function AdminTabs() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-sm font-semibold text-zinc-900">
-                    {editingPolicy ? "Edit policy" : "New policy"}
+                    {editingPolicy ? "Edit Policy/Resistance" : "New Policy/Resistance"}
                   </h2>
                   {editingPolicy && (
                     <button
@@ -1249,21 +1253,41 @@ function AdminTabs() {
                     </select>
                   </div>
                 </div>
-                <div>
-                  <label className="mb-1 block text-xs font-medium">
-                    Tags (comma-separated)
-                  </label>
-                  <input
-                    value={policyForm.tagsInput}
-                    onChange={(e) =>
-                      setPolicyForm((f) => ({
-                        ...f,
-                        tagsInput: e.target.value,
-                      }))
-                    }
-                    placeholder="encampment bans, policing, supportive housing, zoning"
-                    className="w-full rounded-md border border-zinc-300 px-2 py-1 text-sm outline-none focus:border-zinc-900"
-                  />
+                <div className="grid gap-3 md:grid-cols-2">
+                  <div>
+                    <label className="mb-1 block text-xs font-medium">
+                      Type (Genre)
+                    </label>
+                    <select
+                      value={policyForm.genre}
+                      onChange={(e) =>
+                        setPolicyForm((f) => ({
+                          ...f,
+                          genre: e.target.value as "Policy" | "Resistance",
+                        }))
+                      }
+                      className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm outline-none focus:border-zinc-900"
+                    >
+                      <option value="Policy">Policy</option>
+                      <option value="Resistance">Resistance</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-xs font-medium">
+                      Tags (comma-separated)
+                    </label>
+                    <input
+                      value={policyForm.tagsInput}
+                      onChange={(e) =>
+                        setPolicyForm((f) => ({
+                          ...f,
+                          tagsInput: e.target.value,
+                        }))
+                      }
+                      placeholder="encampment bans, policing, supportive housing, zoning"
+                      className="w-full rounded-md border border-zinc-300 px-2 py-1 text-sm outline-none focus:border-zinc-900"
+                    />
+                  </div>
                 </div>
                 <div>
                   <label className="mb-1 block text-xs font-medium">
@@ -1335,13 +1359,13 @@ function AdminTabs() {
                     type="submit"
                     className="inline-flex items-center justify-center rounded-full bg-zinc-900 px-4 py-1.5 text-xs font-medium text-zinc-50 hover:bg-zinc-800"
                   >
-                    {editingPolicy ? "Save changes" : "Create policy"}
+                    {editingPolicy ? "Save changes" : "Create item"}
                   </button>
                 </div>
               </form>
               <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3">
                 <h2 className="text-sm font-semibold text-zinc-900">
-                  Existing policies
+                  Existing items (Policies & Resistance)
                 </h2>
                 <ul className="max-h-64 space-y-2 overflow-y-auto text-xs">
                   {policies.map((p) => (
@@ -1354,7 +1378,7 @@ function AdminTabs() {
                           {p.title}
                         </p>
                         <p className="text-[11px] text-zinc-500">
-                          {p.date ?? "No date"} · {p.jurisdiction} ·{" "}
+                          {p.date ?? "No date"} · {p.genre} · {p.jurisdiction} ·{" "}
                           {p.published ? "Published" : "Draft"}
                         </p>
                       </div>

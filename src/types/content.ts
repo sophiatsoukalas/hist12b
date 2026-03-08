@@ -25,6 +25,7 @@ export type Policy = {
   short_summary: string | null;
   narrative_md: string | null;
   tags: string[];
+  genre: "Policy" | "Resistance";
   published: boolean;
   created_at: string;
   updated_at: string;
