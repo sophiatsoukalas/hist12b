@@ -220,6 +220,29 @@ export default function MapExplorer() {
 
   const center: [number, number] = [34.05, -118.25]; // Los Angeles
 
+  // Component to fit map bounds to all markers
+  function FitBoundsComponent({ locations }: { locations: Location[] }) {
+    const map = useMap();
+    const hasFitBounds = useRef(false);
+
+    useEffect(() => {
+      if (hasFitBounds.current) return;
+
+      if (locations.length === 0) {
+        map.setView(center, 11);
+      } else {
+        const bounds = locations.map(
+          loc => [loc.latitude, loc.longitude] as [number, number]
+        );
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
+
+      hasFitBounds.current = true;
+    }, []);
+
+    return null;
+  }
+
   return (
     <>
       {/* Desktop Layout */}
