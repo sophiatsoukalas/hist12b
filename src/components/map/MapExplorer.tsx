@@ -28,24 +28,23 @@ type RelatedPolicyLink = {
   policies: { id: string; title: string; slug: string; date: string | null } | null;
 };
 
-// Defined outside MapExplorer so it isn't remounted on every state change
+
+const LA_CENTER: [number, number] = [34.05, -118.25];
+
 function FitBoundsComponent({ locations }: { locations: Location[] }) {
   const map = useMap();
   const hasFitBounds = useRef(false);
-  const center: [number, number] = [34.05, -118.25];
 
   useEffect(() => {
     if (hasFitBounds.current) return;
-
     if (locations.length === 0) {
-      map.setView(center, 11);
+      map.setView(LA_CENTER, 11);
     } else {
       const bounds = locations.map(
         (loc) => [loc.latitude, loc.longitude] as [number, number],
       );
       map.fitBounds(bounds, { padding: [50, 50] });
     }
-
     hasFitBounds.current = true;
   }, [locations, map]);
 
@@ -60,8 +59,8 @@ function FlyToLocation({ location }: { location: Location | null }) {
     const lat = Number(location.latitude);
     const lng = Number(location.longitude);
     if (!isFinite(lat) || !isFinite(lng)) return;
-    const size = map.getSize();
-    if (size.x === 0 || size.y === 0) return; // map is hidden, skip
+    // Skip if the map's container is hidden (display:none), offsetParent is null in that case
+    if (!map.getContainer().offsetParent) return;
     map.flyTo([lat, lng], 15, { duration: 1 });
   }, [location, map]);
 
@@ -218,31 +217,6 @@ export default function MapExplorer() {
     });
   }, [locations, filters]);
 
-  const center: [number, number] = [34.05, -118.25]; // Los Angeles
-
-  // Component to fit map bounds to all markers
-  function FitBoundsComponent({ locations }: { locations: Location[] }) {
-    const map = useMap();
-    const hasFitBounds = useRef(false);
-
-    useEffect(() => {
-      if (hasFitBounds.current) return;
-
-      if (locations.length === 0) {
-        map.setView(center, 11);
-      } else {
-        const bounds = locations.map(
-          loc => [loc.latitude, loc.longitude] as [number, number]
-        );
-        map.fitBounds(bounds, { padding: [50, 50] });
-      }
-
-      hasFitBounds.current = true;
-    }, []);
-
-    return null;
-  }
-
   return (
     <>
       {/* Desktop Layout */}
@@ -352,7 +326,7 @@ export default function MapExplorer() {
           </div>
         ) : (
           <MapContainer
-            center={center}
+            center={LA_CENTER}
             zoom={11}
             className="h-full w-full rounded-xl"
             scrollWheelZoom
@@ -525,7 +499,7 @@ export default function MapExplorer() {
             </div>
           ) : (
             <MapContainer
-              center={center}
+              center={LA_CENTER}
               zoom={11}
               className="h-full w-full rounded-xl"
               scrollWheelZoom
