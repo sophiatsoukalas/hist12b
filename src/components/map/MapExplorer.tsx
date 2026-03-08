@@ -28,6 +28,46 @@ type RelatedPolicyLink = {
   policies: { id: string; title: string; slug: string; date: string | null } | null;
 };
 
+// Defined outside MapExplorer so it isn't remounted on every state change
+function FitBoundsComponent({ locations }: { locations: Location[] }) {
+  const map = useMap();
+  const hasFitBounds = useRef(false);
+  const center: [number, number] = [34.05, -118.25];
+
+  useEffect(() => {
+    if (hasFitBounds.current) return;
+
+    if (locations.length === 0) {
+      map.setView(center, 11);
+    } else {
+      const bounds = locations.map(
+        (loc) => [loc.latitude, loc.longitude] as [number, number],
+      );
+      map.fitBounds(bounds, { padding: [50, 50] });
+    }
+
+    hasFitBounds.current = true;
+  }, [locations, map]);
+
+  return null;
+}
+
+function FlyToLocation({ location }: { location: Location | null }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!location) return;
+    const lat = Number(location.latitude);
+    const lng = Number(location.longitude);
+    if (!isFinite(lat) || !isFinite(lng)) return;
+    const size = map.getSize();
+    if (size.x === 0 || size.y === 0) return; // map is hidden, skip
+    map.flyTo([lat, lng], 15, { duration: 1 });
+  }, [location, map]);
+
+  return null;
+}
+
 export default function MapExplorer() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
@@ -180,29 +220,6 @@ export default function MapExplorer() {
 
   const center: [number, number] = [34.05, -118.25]; // Los Angeles
 
-  // Component to fit map bounds to all markers
-  function FitBoundsComponent({ locations }: { locations: Location[] }) {
-    const map = useMap();
-    const hasFitBounds = useRef(false);
-
-    useEffect(() => {
-      if (hasFitBounds.current) return;
-
-      if (locations.length === 0) {
-        map.setView(center, 11);
-      } else {
-        const bounds = locations.map(
-          loc => [loc.latitude, loc.longitude] as [number, number]
-        );
-        map.fitBounds(bounds, { padding: [50, 50] });
-      }
-
-      hasFitBounds.current = true;
-    }, [locations, map]);
-
-    return null;
-  }
-
   return (
     <>
       {/* Desktop Layout */}
@@ -318,6 +335,7 @@ export default function MapExplorer() {
             scrollWheelZoom
           >
             <FitBoundsComponent locations={filtered} />
+            <FlyToLocation location={selected} />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -490,6 +508,7 @@ export default function MapExplorer() {
               scrollWheelZoom
             >
               <FitBoundsComponent locations={filtered} />
+            <FlyToLocation location={selected} />
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
