@@ -169,10 +169,10 @@ export default function PoliciesPage() {
         <div className="max-w-3xl space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight">
             <span className="text-red-600">Resistance</span>
-            <span className="text-zinc-800 mx-2">&</span>
+            <span className="text-zinc-800 mx-2 dark:text-zinc-200">&</span>
             <span className="text-blue-600">Policies</span>
           </h1>
-          <p className="text-sm text-zinc-800 mx-2">
+          <p className="text-sm text-zinc-800 mx-2 dark:text-zinc-200">
             A chronological view of federal, state, county, and city-level
             policies and resistance movements that have shaped homelessness and housing in Los Angeles
             and the United States.
@@ -180,13 +180,13 @@ export default function PoliciesPage() {
         </div>
         <div className="flex gap-3 text-xs">
           <div>
-            <label className="mb-1 block font-medium text-zinc-800">
+            <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
               Jurisdiction
             </label>
             <select
               value={jurisdiction}
               onChange={(e) => setJurisdiction(e.target.value)}
-              className="rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+              className="rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
             >
               <option value="all">All</option>
               <option value="federal">Federal</option>
@@ -196,13 +196,13 @@ export default function PoliciesPage() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block font-medium text-zinc-800">
+            <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
               Tag
             </label>
             <select
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              className="rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+              className="rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
             >
               <option value="all">All</option>
               {allTags.map((t) => (
@@ -242,7 +242,7 @@ export default function PoliciesPage() {
                     <div className="flex flex-col items-center group cursor-pointer">
                       {/* Animated dot */}
                       <div
-                        className={`w-5 h-5 rounded-full border-3 border-white shadow-lg transition-transform duration-300 group-hover:scale-125 ${
+                        className={`w-5 h-5 rounded-full border-3 border-white dark:border-zinc-950 shadow-lg transition-transform duration-300 group-hover:scale-125 ${
                           color === "gradient"
                             ? "bg-gradient-to-br from-red-500 to-blue-500"
                             : color === "red"
@@ -279,7 +279,7 @@ export default function PoliciesPage() {
       )}
 
       {loading ? (
-        <p className="text-sm text-zinc-600">Loading policies…</p>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">Loading policies…</p>
       ) : (
         <div className="space-y-12">
           {grouped.map((group) => {
@@ -303,19 +303,19 @@ export default function PoliciesPage() {
                 {/* Decade header */}
                 <div className="relative mb-8">
                   <div className="flex items-center">
-                    <div className="flex-1 border-t-2 border-zinc-200"></div>
+                    <div className="flex-1 border-t-2 border-zinc-200 dark:border-zinc-700"></div>
                     <div
                       className={`mx-4 px-6 py-2 rounded-full text-sm font-bold uppercase tracking-[0.2em] shadow-sm ${
                         color === "gradient"
-                          ? "bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent border-2 border-current bg-white"
+                          ? "bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent border-2 border-current bg-white dark:bg-zinc-950"
                           : color === "red"
-                          ? "text-red-600 border-2 border-red-600 bg-red-50"
-                          : "text-blue-600 border-2 border-blue-600 bg-blue-50"
+                          ? "text-red-600 border-2 border-red-600 bg-red-50 dark:bg-red-950/30"
+                          : "text-blue-600 border-2 border-blue-600 bg-blue-50 dark:bg-blue-950/30"
                       }`}
                     >
                       {group.decade}
                     </div>
-                    <div className="flex-1 border-t-2 border-zinc-200"></div>
+                    <div className="flex-1 border-t-2 border-zinc-200 dark:border-zinc-700"></div>
                   </div>
                 </div>
 
@@ -367,7 +367,7 @@ export default function PoliciesPage() {
       )}
 
       {!grouped.length && (
-        <p className="text-sm text-zinc-600 text-center py-8">
+        <p className="text-sm text-zinc-600 text-center py-8 dark:text-zinc-400">
           No policies match the current filters.
         </p>
       )}
@@ -382,14 +382,14 @@ function ResistanceCard({ policy, jurisdictionLabel }: {
 }) {
   return (
     <article
-      className="rounded-lg border-l-4 border-red-500 bg-white p-4 text-sm text-zinc-700 hover:shadow-md transition-shadow duration-300"
+      className="rounded-lg border-l-4 border-red-500 bg-white p-4 text-sm text-zinc-700 hover:shadow-md transition-shadow duration-300 dark:bg-zinc-900 dark:text-zinc-300"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
-          <h3 className="text-sm font-semibold text-zinc-900">
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {policy.title}
           </h3>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
             {policy.date
               ? new Date(policy.date).toLocaleDateString(undefined, {
                   year: "numeric",
@@ -406,7 +406,7 @@ function ResistanceCard({ policy, jurisdictionLabel }: {
             {policy.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700"
+                className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
               >
                 {t}
               </span>
@@ -415,12 +415,12 @@ function ResistanceCard({ policy, jurisdictionLabel }: {
         ) : null}
       </div>
       {policy.short_summary && (
-        <p className="mt-2 text-sm text-zinc-700">
+        <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
           {policy.short_summary}
         </p>
       )}
       {policy.narrative_md && (
-        <div className="prose prose-sm mt-2 max-w-none text-zinc-800">
+        <div className="prose prose-sm mt-2 max-w-none text-zinc-800 dark:text-zinc-200 dark:prose-invert">
           <ReactMarkdown>{policy.narrative_md}</ReactMarkdown>
         </div>
       )}
@@ -437,14 +437,14 @@ function PolicyCard({ policy, jurisdictionLabel }: {
 }) {
   return (
     <article
-      className="rounded-lg border-r-4 border-blue-500 bg-white p-4 text-sm text-zinc-700 hover:shadow-md transition-shadow duration-300"
+      className="rounded-lg border-r-4 border-blue-500 bg-white p-4 text-sm text-zinc-700 hover:shadow-md transition-shadow duration-300 dark:bg-zinc-900 dark:text-zinc-300"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
-          <h3 className="text-sm font-semibold text-zinc-900">
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {policy.title}
           </h3>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
             {policy.date
               ? new Date(policy.date).toLocaleDateString(undefined, {
                   year: "numeric",
@@ -461,7 +461,7 @@ function PolicyCard({ policy, jurisdictionLabel }: {
             {policy.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700"
+                className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
               >
                 {t}
               </span>
@@ -470,12 +470,12 @@ function PolicyCard({ policy, jurisdictionLabel }: {
         ) : null}
       </div>
       {policy.short_summary && (
-        <p className="mt-2 text-sm text-zinc-700">
+        <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
           {policy.short_summary}
         </p>
       )}
       {policy.narrative_md && (
-        <div className="prose prose-sm mt-2 max-w-none text-zinc-800">
+        <div className="prose prose-sm mt-2 max-w-none text-zinc-800 dark:text-zinc-200 dark:prose-invert">
           <ReactMarkdown>{policy.narrative_md}</ReactMarkdown>
         </div>
       )}
@@ -488,9 +488,9 @@ function PolicyCard({ policy, jurisdictionLabel }: {
 // Helper component for policy details
 function PolicyDetails({ policy }: { policy: PolicyWithRelations }) {
   return (
-    <div className="mt-3 grid gap-2 text-[11px] text-zinc-700 md:grid-cols-2">
+    <div className="mt-3 grid gap-2 text-[11px] text-zinc-700 dark:text-zinc-300 md:grid-cols-2">
       <div>
-        <p className="mb-1 font-medium text-zinc-800">
+        <p className="mb-1 font-medium text-zinc-800 dark:text-zinc-200">
           Citations
         </p>
         {policy.policy_citations &&
@@ -505,7 +505,7 @@ function PolicyDetails({ policy }: { policy: PolicyWithRelations }) {
                   {": "}
                   <span>{pc.citations.title}</span>
                   {pc.context_note && (
-                    <span className="text-zinc-500">
+                    <span className="text-zinc-500 dark:text-zinc-400">
                       {` — ${pc.context_note}`}
                     </span>
                   )}
@@ -514,13 +514,13 @@ function PolicyDetails({ policy }: { policy: PolicyWithRelations }) {
             )}
           </ul>
         ) : (
-          <p className="text-[11px] text-zinc-500">
+          <p className="text-[11px] text-zinc-500 dark:text-zinc-500">
             No citations linked yet.
           </p>
         )}
       </div>
       <div>
-        <p className="mb-1 font-medium text-zinc-800">
+        <p className="mb-1 font-medium text-zinc-800 dark:text-zinc-200">
           Related locations
         </p>
         {policy.policy_locations &&
@@ -533,12 +533,12 @@ function PolicyDetails({ policy }: { policy: PolicyWithRelations }) {
                     {pl.locations.title}
                   </span>
                   {pl.locations.neighborhood && (
-                    <span className="text-zinc-500">
+                    <span className="text-zinc-500 dark:text-zinc-400">
                       {` (${pl.locations.neighborhood})`}
                     </span>
                   )}
                   {pl.relationship_note && (
-                    <span className="text-zinc-500">
+                    <span className="text-zinc-500 dark:text-zinc-400">
                       {` — ${pl.relationship_note}`}
                     </span>
                   )}
@@ -547,7 +547,7 @@ function PolicyDetails({ policy }: { policy: PolicyWithRelations }) {
             )}
           </ul>
         ) : (
-          <p className="text-[11px] text-zinc-500">
+          <p className="text-[11px] text-zinc-500 dark:text-zinc-500">
             No locations linked yet.
           </p>
         )}

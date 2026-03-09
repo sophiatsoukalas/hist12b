@@ -85,13 +85,13 @@ export default function SourcesPage() {
     <div className="space-y-4">
       <header className="max-w-3xl space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">Sources</h1>
-        <p className="text-sm text-zinc-700">
+        <p className="text-sm text-zinc-700 dark:text-zinc-300">
           A shared bibliography for locations and policies. Each citation shows
           where it appears on the map and timeline.
         </p>
       </header>
 
-      <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
           <input
             type="search"
@@ -101,9 +101,9 @@ export default function SourcesPage() {
               setPage(1);
               setSearch(e.target.value);
             }}
-            className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none ring-0 placeholder:text-zinc-400 focus:border-zinc-900"
+            className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none ring-0 placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-400"
           />
-          <div className="flex items-center justify-between gap-3 text-xs text-zinc-500 md:justify-end">
+          <div className="flex items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400 md:justify-end">
             <span>
               Page {page} of {totalPages} · {total} citations
             </span>
@@ -115,15 +115,15 @@ export default function SourcesPage() {
         )}
 
         {loading ? (
-          <p className="text-sm text-zinc-600">Loading citations…</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">Loading citations…</p>
         ) : (
           <div className="space-y-4">
             {citations.map((c) => (
               <article
                 key={c.id}
-                className="border-t border-zinc-200 pt-3 first:border-t-0 first:pt-0"
+                className="border-t border-zinc-200 pt-3 first:border-t-0 first:pt-0 dark:border-zinc-700"
               >
-                <p className="text-sm font-semibold text-zinc-900">
+                <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                   {c.author && `${c.author}. `}
                   <span className="italic">{c.title}</span>
                   {c.publication && `, ${c.publication}`}
@@ -135,18 +135,18 @@ export default function SourcesPage() {
                     href={c.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs font-medium text-zinc-900 underline underline-offset-4"
+                    className="text-xs font-medium text-zinc-900 underline underline-offset-4 dark:text-zinc-100"
                   >
                     Open link
                   </a>
                 )}
                 {c.notes && (
-                  <p className="mt-1 text-xs text-zinc-600">{c.notes}</p>
+                  <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">{c.notes}</p>
                 )}
 
-                <div className="mt-2 grid gap-2 text-[11px] text-zinc-600 md:grid-cols-2">
+                <div className="mt-2 grid gap-2 text-[11px] text-zinc-600 dark:text-zinc-400 md:grid-cols-2">
                   <div>
-                    <p className="mb-1 font-medium text-zinc-800">
+                    <p className="mb-1 font-medium text-zinc-800 dark:text-zinc-200">
                       Used in locations
                     </p>
                     {c.location_citations && c.location_citations.length > 0 ? (
@@ -165,13 +165,13 @@ export default function SourcesPage() {
                         )}
                       </ul>
                     ) : (
-                      <p className="text-[11px] text-zinc-500">
+                      <p className="text-[11px] text-zinc-500 dark:text-zinc-500">
                         Not yet linked to specific locations.
                       </p>
                     )}
                   </div>
                   <div>
-                    <p className="mb-1 font-medium text-zinc-800">
+                    <p className="mb-1 font-medium text-zinc-800 dark:text-zinc-200">
                       Used in policies
                     </p>
                     {c.policy_citations && c.policy_citations.length > 0 ? (
@@ -190,7 +190,7 @@ export default function SourcesPage() {
                         )}
                       </ul>
                     ) : (
-                      <p className="text-[11px] text-zinc-500">
+                      <p className="text-[11px] text-zinc-500 dark:text-zinc-500">
                         Not yet linked to specific policies.
                       </p>
                     )}
@@ -200,19 +200,19 @@ export default function SourcesPage() {
             ))}
 
             {citations.length === 0 && (
-              <p className="text-sm text-zinc-600">
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
                 No citations match your search.
               </p>
             )}
           </div>
         )}
 
-        <div className="mt-4 flex items-center justify-between text-xs text-zinc-600">
+        <div className="mt-4 flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400">
           <button
             type="button"
             disabled={page === 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="rounded-full border border-zinc-300 px-3 py-1 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-zinc-300 px-3 py-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
           >
             Previous
           </button>
@@ -222,7 +222,7 @@ export default function SourcesPage() {
             onClick={() =>
               setPage((p) => (p < totalPages ? p + 1 : totalPages))
             }
-            className="rounded-full border border-zinc-300 px-3 py-1 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-zinc-300 px-3 py-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
           >
             Next
           </button>

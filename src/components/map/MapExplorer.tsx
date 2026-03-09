@@ -222,18 +222,18 @@ export default function MapExplorer() {
       {/* Desktop Layout */}
       <div className="hidden h-[calc(100vh-56px)] flex-col gap-4 sm:flex sm:flex-row">
         {/* Search Panel */}
-        <aside className="w-1/5 overflow-y-auto rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
-        <h1 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900">
+        <aside className="w-1/5 overflow-y-auto rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+        <h1 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
           Map Explorer
         </h1>
-        <p className="mb-3 text-xs text-zinc-700">
+        <p className="mb-3 text-xs text-zinc-700 dark:text-zinc-300">
           Filter locations by category, decade/era, and neighborhood. Hover to
           see names, click to open full narratives.
         </p>
 
         <div className="space-y-3 text-xs">
           <div>
-            <label className="mb-1 block font-medium text-zinc-800">
+            <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
               Search
             </label>
             <input
@@ -243,12 +243,12 @@ export default function MapExplorer() {
               onChange={(e) =>
                 setFilters((f) => ({ ...f, search: e.target.value }))
               }
-              className="w-full rounded-md border border-zinc-300 px-2 py-1 outline-none ring-0 placeholder:text-zinc-400 focus:border-zinc-900"
+              className="w-full rounded-md border border-zinc-300 px-2 py-1 outline-none ring-0 placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-400"
             />
           </div>
 
           <div>
-            <label className="mb-1 block font-medium text-zinc-800">
+            <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
               Category
             </label>
             <select
@@ -256,7 +256,7 @@ export default function MapExplorer() {
               onChange={(e) =>
                 setFilters((f) => ({ ...f, category: e.target.value }))
               }
-              className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+              className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
             >
               <option value="all">All</option>
               {categoryOptions.map((c) => (
@@ -268,13 +268,13 @@ export default function MapExplorer() {
           </div>
 
           <div>
-            <label className="mb-1 block font-medium text-zinc-800">Era</label>
+            <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">Era</label>
             <select
               value={filters.era}
               onChange={(e) =>
                 setFilters((f) => ({ ...f, era: e.target.value }))
               }
-              className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+              className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
             >
               <option value="all">All</option>
               {eraOptions.map((e) => (
@@ -286,7 +286,7 @@ export default function MapExplorer() {
           </div>
 
           <div>
-            <label className="mb-1 block font-medium text-zinc-800">
+            <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
               Neighborhood
             </label>
             <select
@@ -294,7 +294,7 @@ export default function MapExplorer() {
               onChange={(e) =>
                 setFilters((f) => ({ ...f, neighborhood: e.target.value }))
               }
-              className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+              className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
             >
               <option value="all">All</option>
               {neighborhoodOptions.map((n) => (
@@ -305,7 +305,7 @@ export default function MapExplorer() {
             </select>
           </div>
 
-          <p className="pt-1 text-[11px] text-zinc-500">
+          <p className="pt-1 text-[11px] text-zinc-500 dark:text-zinc-400">
             {filtered.length === 0
               ? "No Result Found"
               : `Showing ${filtered.length} of ${locations.length} locations.`}
@@ -319,9 +319,9 @@ export default function MapExplorer() {
         </div>
       </aside>
 
-      <div className="relative flex-1 rounded-xl border border-zinc-200 bg-zinc-100">
+      <div className="relative flex-1 rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-800">
         {loading ? (
-          <div className="flex h-full items-center justify-center text-xs text-zinc-500">
+          <div className="flex h-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
             Loading map…
           </div>
         ) : (
@@ -361,43 +361,43 @@ export default function MapExplorer() {
         )}
       </div>
 
-      <aside className="hidden w-2/5 flex-col rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm sm:flex">
+      <aside className="hidden w-2/5 flex-col rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm sm:flex dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
         {!selected && (
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
             Click a marker to see a narrative case study, images, and sources.
           </p>
         )}
         {selected && (
           <div className="space-y-3 overflow-y-auto">
             <div>
-              <h2 className="text-base font-semibold tracking-tight text-zinc-900">
+              <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
                 {selected.title}
               </h2>
               {selected.neighborhood && (
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                   {selected.neighborhood}
                 </p>
               )}
               {selected.era && (
-                <p className="mt-1 text-xs text-zinc-500">{selected.era}</p>
+                <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{selected.era}</p>
               )}
             </div>
             {selected.short_summary && (
-              <p className="text-sm text-zinc-700">{selected.short_summary}</p>
+              <p className="text-sm text-zinc-700 dark:text-zinc-300">{selected.short_summary}</p>
             )}
             {selected.narrative_md && (
-              <div className="prose prose-sm max-w-none text-zinc-800">
+              <div className="prose prose-sm max-w-none text-zinc-800 dark:text-zinc-200 dark:prose-invert">
                 <ReactMarkdown>{selected.narrative_md}</ReactMarkdown>
               </div>
             )}
             {selected.categories?.length ? (
               <div className="space-y-1">
-                <p className="text-xs font-medium text-zinc-800">Categories</p>
+                <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">Categories</p>
                 <div className="flex flex-wrap gap-1">
                   {selected.categories.map((c) => (
                     <span
                       key={c}
-                      className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700"
+                      className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                     >
                       {c}
                     </span>
@@ -407,7 +407,7 @@ export default function MapExplorer() {
             ) : null}
             {selected.images?.length ? (
               <div className="space-y-1">
-                <p className="text-xs font-medium text-zinc-800">Images</p>
+                <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">Images</p>
                 <div className="grid grid-cols-2 gap-2">
                   {selected.images.map((url) => (
                     <img
@@ -421,20 +421,20 @@ export default function MapExplorer() {
               </div>
             ) : null}
             <div className="space-y-2 pt-1">
-              <p className="text-xs font-medium text-zinc-800">
+              <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">
                 Citations
               </p>
               {detailsLoading && (
-                <p className="text-[11px] text-zinc-500">
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                   Loading citations…
                 </p>
               )}
               {!detailsLoading && selectedCitations.length === 0 && (
-                <p className="text-[11px] text-zinc-500">
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                   No citations linked yet.
                 </p>
               )}
-              <ul className="space-y-1 text-[11px] text-zinc-700">
+              <ul className="space-y-1 text-[11px] text-zinc-700 dark:text-zinc-300">
                 {selectedCitations.map((c) =>
                   c.citations ? (
                     <li key={c.id}>
@@ -444,7 +444,7 @@ export default function MapExplorer() {
                       {": "}
                       <span>{c.citations.title}</span>
                       {c.context_note && (
-                        <span className="text-zinc-500">
+                        <span className="text-zinc-500 dark:text-zinc-400">
                           {` — ${c.context_note}`}
                         </span>
                       )}
@@ -454,20 +454,20 @@ export default function MapExplorer() {
               </ul>
             </div>
             <div className="space-y-2 pt-1">
-              <p className="text-xs font-medium text-zinc-800">
+              <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">
                 Related policies
               </p>
               {detailsLoading && (
-                <p className="text-[11px] text-zinc-500">
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                   Loading related policies…
                 </p>
               )}
               {!detailsLoading && selectedPolicies.length === 0 && (
-                <p className="text-[11px] text-zinc-500">
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                   No policies linked yet.
                 </p>
               )}
-              <ul className="space-y-1 text-[11px] text-zinc-700">
+              <ul className="space-y-1 text-[11px] text-zinc-700 dark:text-zinc-300">
                 {selectedPolicies.map((p) =>
                   p.policies ? (
                     <li key={p.id}>
@@ -475,7 +475,7 @@ export default function MapExplorer() {
                         {p.policies.title}
                       </span>
                       {p.relationship_note && (
-                        <span className="text-zinc-500">
+                        <span className="text-zinc-500 dark:text-zinc-400">
                           {` — ${p.relationship_note}`}
                         </span>
                       )}
@@ -492,9 +492,9 @@ export default function MapExplorer() {
       {/* Mobile/Portrait Layout */}
       <div className="flex h-[calc(100vh-56px)] flex-col gap-2 sm:hidden">
         {/* Area B - Map (top half) */}
-        <div className="relative flex-1 rounded-xl border border-zinc-200 bg-zinc-100">
+        <div className="relative flex-1 rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-800">
           {loading ? (
-            <div className="flex h-full items-center justify-center text-xs text-zinc-500">
+            <div className="flex h-full items-center justify-center text-xs text-zinc-500 dark:text-zinc-400">
               Loading map…
             </div>
           ) : (
@@ -535,20 +535,20 @@ export default function MapExplorer() {
         </div>
 
         {/* Area A - Search / Details (bottom half) */}
-        <div className="flex flex-1 flex-col rounded-xl border border-zinc-200 bg-white shadow-sm transition-all duration-300 min-h-0 relative overflow-hidden">
+        <div className="flex flex-1 flex-col rounded-xl border border-zinc-200 bg-white shadow-sm transition-all duration-300 min-h-0 relative overflow-hidden dark:border-zinc-800 dark:bg-zinc-900">
           {/* Search Area */}
           <div className={`absolute inset-0 flex flex-col overflow-y-auto p-4 transition-all duration-500 ease-in-out ${selected ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
-            <h1 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900">
+            <h1 className="mb-2 text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
               Map Explorer
             </h1>
-            <p className="mb-3 text-xs text-zinc-700">
+            <p className="mb-3 text-xs text-zinc-700 dark:text-zinc-300">
               Filter locations by category, decade/era, and neighborhood. Hover to
               see names, click to open full narratives.
             </p>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="mb-1 block font-medium text-zinc-800">
+                <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
                   Search
                 </label>
                 <input
@@ -558,12 +558,12 @@ export default function MapExplorer() {
                   onChange={(e) =>
                     setFilters((f) => ({ ...f, search: e.target.value }))
                   }
-                  className="w-full rounded-md border border-zinc-300 px-2 py-1 outline-none ring-0 placeholder:text-zinc-400 focus:border-zinc-900"
+                  className="w-full rounded-md border border-zinc-300 px-2 py-1 outline-none ring-0 placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-400"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-zinc-800">
+                <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
                   Category
                 </label>
                 <select
@@ -571,7 +571,7 @@ export default function MapExplorer() {
                   onChange={(e) =>
                     setFilters((f) => ({ ...f, category: e.target.value }))
                   }
-                  className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+                  className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                 >
                   <option value="all">All</option>
                   {categoryOptions.map((c) => (
@@ -583,13 +583,13 @@ export default function MapExplorer() {
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-zinc-800">Era</label>
+                <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">Era</label>
                 <select
                   value={filters.era}
                   onChange={(e) =>
                     setFilters((f) => ({ ...f, era: e.target.value }))
                   }
-                  className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+                  className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                 >
                   <option value="all">All</option>
                   {eraOptions.map((e) => (
@@ -601,7 +601,7 @@ export default function MapExplorer() {
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-zinc-800">
+                <label className="mb-1 block font-medium text-zinc-800 dark:text-zinc-200">
                   Neighborhood
                 </label>
                 <select
@@ -609,7 +609,7 @@ export default function MapExplorer() {
                   onChange={(e) =>
                     setFilters((f) => ({ ...f, neighborhood: e.target.value }))
                   }
-                  className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900"
+                  className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                 >
                   <option value="all">All</option>
                   {neighborhoodOptions.map((n) => (
@@ -620,7 +620,7 @@ export default function MapExplorer() {
                 </select>
               </div>
 
-              <p className="pt-1 text-[11px] text-zinc-500">
+              <p className="pt-1 text-[11px] text-zinc-500 dark:text-zinc-400">
                 {filtered.length === 0
                   ? "No Result Found"
                   : `Showing ${filtered.length} of ${locations.length} locations.`}
@@ -638,7 +638,7 @@ export default function MapExplorer() {
           <div className={`absolute inset-0 flex flex-col overflow-y-auto p-4 transition-all duration-500 ease-in-out ${!selected ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
             <button
               onClick={() => setSelected(null)}
-              className="mb-3 text-xs font-medium text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
+              className="mb-3 text-xs font-medium text-zinc-600 hover:text-zinc-900 transition-colors duration-200 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
               ← Back to the explorer
             </button>
@@ -646,34 +646,34 @@ export default function MapExplorer() {
             {selected && (
               <div className="space-y-3">
                 <div>
-                  <h2 className="text-base font-semibold tracking-tight text-zinc-900">
+                  <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
                     {selected.title}
                   </h2>
                   {selected.neighborhood && (
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
                       {selected.neighborhood}
                     </p>
                   )}
                   {selected.era && (
-                    <p className="mt-1 text-xs text-zinc-500">{selected.era}</p>
+                    <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{selected.era}</p>
                   )}
                 </div>
                 {selected.short_summary && (
-                  <p className="text-sm text-zinc-700">{selected.short_summary}</p>
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">{selected.short_summary}</p>
                 )}
                 {selected.narrative_md && (
-                  <div className="prose prose-sm max-w-none text-zinc-800">
+                  <div className="prose prose-sm max-w-none text-zinc-800 dark:text-zinc-200 dark:prose-invert">
                     <ReactMarkdown>{selected.narrative_md}</ReactMarkdown>
                   </div>
                 )}
                 {selected.categories?.length ? (
                   <div className="space-y-1">
-                    <p className="text-xs font-medium text-zinc-800">Categories</p>
+                    <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">Categories</p>
                     <div className="flex flex-wrap gap-1">
                       {selected.categories.map((cat) => (
                         <span
                           key={cat}
-                          className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] text-zinc-700"
+                          className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                         >
                           {cat}
                         </span>
@@ -683,14 +683,14 @@ export default function MapExplorer() {
                 ) : null}
                 {selectedCitations?.length ? (
                   <div className="space-y-1">
-                    <p className="text-xs font-medium text-zinc-800">Citations</p>
+                    <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">Citations</p>
                     <ul className="space-y-1 text-[11px]">
                       {selectedCitations.map((cit) =>
                         cit.citations ? (
-                          <li key={cit.id} className="text-zinc-700">
+                          <li key={cit.id} className="text-zinc-700 dark:text-zinc-300">
                             <span className="font-medium">{cit.citations.citation_key}</span>
                             {cit.context_note && (
-                              <span className="text-zinc-500">
+                              <span className="text-zinc-500 dark:text-zinc-400">
                                 {` — ${cit.context_note}`}
                               </span>
                             )}
@@ -702,14 +702,14 @@ export default function MapExplorer() {
                 ) : null}
                 {selectedPolicies?.length ? (
                   <div className="space-y-1">
-                    <p className="text-xs font-medium text-zinc-800">Related Policies</p>
+                    <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200">Related Policies</p>
                     <ul className="space-y-1 text-[11px]">
                       {selectedPolicies.map((p) =>
                         p.policies ? (
-                          <li key={p.id} className="text-zinc-700">
+                          <li key={p.id} className="text-zinc-700 dark:text-zinc-300">
                             <span className="font-medium">{p.policies.title}</span>
                             {p.relationship_note && (
-                              <span className="text-zinc-500">
+                              <span className="text-zinc-500 dark:text-zinc-400">
                                 {` — ${p.relationship_note}`}
                               </span>
                             )}

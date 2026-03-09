@@ -109,7 +109,7 @@ export default function AdminPage() {
       )}
 
       {authState === "unauthenticated" && !checkingSession && (
-        <div className="max-w-md space-y-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+        <div className="max-w-md space-y-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <h2 className="text-sm font-semibold tracking-tight text-zinc-900">
             Admin login
           </h2>
@@ -166,7 +166,7 @@ export default function AdminPage() {
       )}
 
       {authState === "admin" && (
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <AdminTabs />
         </div>
       )}
@@ -802,7 +802,7 @@ function AdminTabs() {
             <div className="grid gap-4 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
               <form
                 onSubmit={saveLocation}
-                className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3"
+                className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
               >
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-sm font-semibold text-zinc-900">
@@ -1036,7 +1036,7 @@ function AdminTabs() {
                   </button>
                 </div>
               </form>
-              <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3">
+              <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
                 <h2 className="text-sm font-semibold text-zinc-900">
                   Existing locations
                 </h2>
@@ -1130,7 +1130,7 @@ function AdminTabs() {
                           onChange={(e) =>
                             setLocationCitationId(e.target.value)
                           }
-                          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs outline-none focus:border-zinc-900"
+                          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                         >
                           <option value="">Select citation…</option>
                           {citations.map((c) => (
@@ -1167,7 +1167,7 @@ function AdminTabs() {
             <div className="grid gap-4 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
               <form
                 onSubmit={savePolicy}
-                className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3"
+                className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
               >
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-sm font-semibold text-zinc-900">
@@ -1244,7 +1244,7 @@ function AdminTabs() {
                           jurisdiction: e.target.value,
                         }))
                       }
-                      className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm outline-none focus:border-zinc-900"
+                      className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                     >
                       <option value="federal">Federal</option>
                       <option value="state">State</option>
@@ -1266,7 +1266,7 @@ function AdminTabs() {
                           genre: e.target.value as "Policy" | "Resistance",
                         }))
                       }
-                      className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm outline-none focus:border-zinc-900"
+                      className="w-full rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                     >
                       <option value="Policy">Policy</option>
                       <option value="Resistance">Resistance</option>
@@ -1363,7 +1363,7 @@ function AdminTabs() {
                   </button>
                 </div>
               </form>
-              <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3">
+              <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
                 <h2 className="text-sm font-semibold text-zinc-900">
                   Existing items (Policies & Resistance)
                 </h2>
@@ -1455,7 +1455,7 @@ function AdminTabs() {
                         <select
                           value={policyCitationId}
                           onChange={(e) => setPolicyCitationId(e.target.value)}
-                          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs outline-none focus:border-zinc-900"
+                          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-400"
                         >
                           <option value="">Select citation…</option>
                           {citations.map((c) => (
@@ -1492,7 +1492,7 @@ function AdminTabs() {
             <div className="grid gap-4 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
               <form
                 onSubmit={saveCitation}
-                className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3"
+                className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
               >
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-sm font-semibold text-zinc-900">
@@ -1629,7 +1629,7 @@ function AdminTabs() {
                   </button>
                 </div>
               </form>
-              <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3">
+              <div className="space-y-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
                 <h2 className="text-sm font-semibold text-zinc-900">
                   Existing citations
                 </h2>

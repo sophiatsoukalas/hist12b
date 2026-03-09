@@ -40,34 +40,34 @@ export function NavBar() {
 
   return (
     <>
-      <header className="border-b border-zinc-200 bg-white/80 backdrop-blur">
+      <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/80">
         <div className="mx-auto flex max-w-6xl items-center px-4 py-3 gap-4">
           <button
             onClick={toggleMenu}
-            className="sm:hidden flex flex-col gap-1.5 cursor-pointer flex-shrink-0 relative w-6 h-6"
+            className="sm:hidden flex flex-col gap-1.5 cursor-pointer flex-shrink-0 relative w-6 h-6 dark:text-zinc-100"
             aria-label="Toggle menu"
           >
-            <div className={`absolute top-0 left-0 h-0.5 w-6 bg-zinc-900 transition-all duration-300 ease-in-out ${
+            <div className={`absolute top-0 left-0 h-0.5 w-6 bg-zinc-900 dark:bg-zinc-100 transition-all duration-300 ease-in-out ${
               menuOpen ? 'rotate-45 translate-y-[11px]' : ''
             }`}></div>
-            <div className={`absolute top-[9px] left-0 h-0.5 w-6 bg-zinc-900 transition-all duration-300 ease-in-out ${
+            <div className={`absolute top-[9px] left-0 h-0.5 w-6 bg-zinc-900 dark:bg-zinc-100 transition-all duration-300 ease-in-out ${
               menuOpen ? 'opacity-0' : ''
             }`}></div>
-            <div className={`absolute bottom-0 left-0 h-0.5 w-6 bg-zinc-900 transition-all duration-300 ease-in-out ${
+            <div className={`absolute bottom-0 left-0 h-0.5 w-6 bg-zinc-900 dark:bg-zinc-100 transition-all duration-300 ease-in-out ${
               menuOpen ? '-rotate-45 -translate-y-[11px]' : ''
             }`}></div>
           </button>
 
           <div className="flex flex-col flex-1 min-w-0">
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
+            <span className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
               HIST 12B · Final Project
             </span>
-            <span className="text-sm font-semibold text-zinc-900">
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
               Neoliberal Housing Logic &amp; Homelessness in Los Angeles
             </span>
           </div>
 
-          <nav className="hidden gap-4 text-sm text-zinc-700 sm:flex flex-shrink-0">
+          <nav className="hidden gap-4 text-sm text-zinc-700 dark:text-zinc-300 sm:flex flex-shrink-0">
             {links.map((link) => {
               const active =
                 link.href === "/"
@@ -79,8 +79,8 @@ export function NavBar() {
                   href={link.href}
                   className={`rounded-full px-3 py-1 transition-colors ${
                     active
-                      ? "bg-zinc-900 text-zinc-50"
-                      : "hover:bg-zinc-100"
+                      ? "bg-zinc-900 text-zinc-50 dark:bg-zinc-100 dark:text-zinc-900"
+                      : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
                   }`}
                 >
                   {link.label}

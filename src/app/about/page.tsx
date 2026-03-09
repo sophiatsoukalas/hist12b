@@ -3,7 +3,7 @@ export default function AboutPage() {
     <div className="space-y-4">
       <header className="max-w-3xl space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">Methods</h1>
-        <p className="text-sm text-zinc-700">
+        <p className="text-sm text-zinc-700 dark:text-zinc-300">
           Definitions, scope, and methodological notes for the project{" "}
           <span className="font-semibold">
             “Neoliberal Housing Logic &amp; Homelessness Policy in the United
@@ -12,8 +12,8 @@ export default function AboutPage() {
         </p>
       </header>
       <section className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm">
-          <h2 className="text-sm font-semibold tracking-tight text-zinc-900">
+        <div className="space-y-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+          <h2 className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
             Defining neoliberal housing logic
           </h2>
           <p>
@@ -24,8 +24,8 @@ export default function AboutPage() {
             that condition aid on compliance.
           </p>
         </div>
-        <div className="space-y-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm">
-          <h2 className="text-sm font-semibold tracking-tight text-zinc-900">
+        <div className="space-y-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+          <h2 className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
             Scope & limitations
           </h2>
           <p>
@@ -37,8 +37,8 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-      <section className="max-w-3xl space-y-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm">
-        <h2 className="text-sm font-semibold tracking-tight text-zinc-900">
+      <section className="max-w-3xl space-y-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+        <h2 className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
           Acknowledgements
         </h2>
         <p>
@@ -47,7 +47,7 @@ export default function AboutPage() {
           local mutual aid groups. See the{" "}
           <a
             href="/hist12b/sources"
-            className="font-medium text-zinc-900 underline underline-offset-4"
+            className="font-medium text-zinc-900 underline underline-offset-4 dark:text-zinc-100"
           >
             Sources
           </a>{" "}
