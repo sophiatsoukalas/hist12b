@@ -64,13 +64,13 @@ export default function Home() {
           <div className="space-x-3 text-sm font-medium text-zinc-900">
             <a
               href="/hist12b/sources"
-              className="underline underline-offset-4"
+              className="underline underline-offset-4 dark:text-zinc-100"
             >
               View sources
             </a>
             <a
               href="/hist12b/about"
-              className="underline underline-offset-4"
+              className="underline underline-offset-4 dark:text-zinc-100"
             >
               Read methods
             </a>
