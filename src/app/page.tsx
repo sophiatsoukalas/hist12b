@@ -10,12 +10,12 @@ export default function Home() {
         </p>
         <p className="text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
           This project examines how{" "}
-          <span className="font-semibold">neoliberal housing logic</span>—the
-          prioritization of property values, market solutions, and austerity—has
-          structured homelessness policy in Los Angeles and the United States.
+          <span className="font-semibold">neoliberal housing logic</span> (the
+          prioritization of property values, market solutions, and austerity)
+          has structured homelessness policy in Los Angeles and the United States.
           By layering locations, policies, and citations, the site invites users
           to see homelessness not as an individual failure, but as the outcome
-          of political and spatial decisions.
+          of political decisions.
         </p>
       </section>
 
@@ -25,8 +25,8 @@ export default function Home() {
             Map Explorer
           </h2>
           <p className="mb-3 text-sm text-zinc-700 dark:text-zinc-300">
-            Navigate key sites in Los Angeles—encampments, redevelopment zones,
-            shelters, policing hotspots—and read narrative case studies that
+            Navigate key sites in Los Angeles, likeencampments, redevelopment zones,
+            shelters, policing hotspots. Additionally, you can read narrative case studies that
             connect place to policy.
           </p>
           <a

@@ -20,7 +20,7 @@ export default function AboutPage() {
             In this project, neoliberal housing logic refers to policies and
             discourses that prioritize property values, market incentives, and
             austerity over guarantees of housing as a social right. This often
-            appears through criminalization, redevelopment, and “service” models
+            appears through criminalization and redevelopment
             that condition aid on compliance.
           </p>
         </div>
@@ -30,9 +30,7 @@ export default function AboutPage() {
           </h2>
           <p>
             The map centers Los Angeles but connects to federal and statewide
-            shifts. It is{" "}
-            <span className="font-semibold">illustrative, not exhaustive</span>:
-            we highlight a curated set of locations and policies to support
+            shifts. We highlight a curated set of locations and policies to support
             classroom discussion rather than provide a full archive.
           </p>
         </div>
@@ -43,7 +41,7 @@ export default function AboutPage() {
         </h2>
         <p>
           This project was created for HIST 12B and draws on work by
-          historians, geographers, urban planners, unhoused organizers, and
+          historians, geographers, unhoused organizers, and
           local mutual aid groups. See the{" "}
           <a
             href="/hist12b/sources"
