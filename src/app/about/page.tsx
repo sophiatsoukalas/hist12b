@@ -4,11 +4,7 @@ export default function AboutPage() {
       <header className="max-w-3xl space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">Methods</h1>
         <p className="text-sm text-zinc-700 dark:text-zinc-300">
-          Definitions, scope, and methodological notes for the project{" "}
-          <span className="font-semibold">
-            “Neoliberal Housing Logic &amp; Homelessness Policy in the United
-            States.”
-          </span>
+          Definitions, scope, and methodological notes for the work on this website.
         </p>
       </header>
       <section className="grid gap-4 md:grid-cols-2">
